@@ -1,0 +1,26 @@
+.btn-round{
+	width: 32px;
+	height: 32px;
+	border-radius: 100%;
+	margin: 0 .3em;
+    display: flex;
+	align-items: center;
+    justify-content: center;
+}
+.mdi::before {
+    font-size: 18px;
+    line-height: 14px;
+}
+.sidebar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 200px;
+    z-index: 20;
+}
+.main-content{
+    height: 100vh;
+    margin-left: 200px;
+    padding: 40px 24px;
+}

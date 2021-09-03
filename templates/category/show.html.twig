@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categories | Optime{% endblock %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h3>Category</h3>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-12">
+                {{ form_start(form) }}
+                    {{ form_row(form.name, { 'attr':{'disabled':'disabled'} }) }}
+                    {{ form_row(form.active, { 'attr':{'disabled':'disabled'} }) }}
+                {{ form_end(form) }}
+            </div>
+            <div class="col-md-12">
+                <a  href="{{ path('category.index')}}" class="btn btn-success">Done</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

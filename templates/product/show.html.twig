@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Show product | Optime{% endblock %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h3>Product</h3>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-12">
+                {{ form_start(form) }}
+                    {{ form_row(form.code, { 'attr':{'disabled':'disabled'} }) }}
+                    {{ form_row(form.name, { 'attr':{'disabled':'disabled'} }) }}
+                    {{ form_row(form.description, { 'attr':{'disabled':'disabled'} }) }}
+                    {{ form_row(form.brand, { 'attr':{'disabled':'disabled'} }) }}
+                    {{ form_row(form.price, { 'attr':{'disabled':'disabled'} }) }}
+                    {{ form_row(form.category, { 'attr':{'disabled':'disabled'} }) }}
+                {{ form_end(form) }}
+            </div>
+            <div class="col-md-12">
+                <a  href="{{ path('product.index')}}" class="btn btn-success">Done</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

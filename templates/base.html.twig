@@ -2,18 +2,48 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
-
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
+        <title>{% block title %}{% endblock %}</title>
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}"/>
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/sweetalert.css') }}"/>
+            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css">
+            <link rel="stylesheet" type="text/css" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}"/>
+        {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+
+        <div class="sidebar d-flex flex-column  p-3 text-white bg-dark">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+              <span class="fs-4">Optime Test</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+              <li>
+                <a href="{{ path('category.index')}}" class="nav-link text-white" id="categories">
+                  Categories
+                </a>
+              </li>
+              <li>
+                <a href="{{ path('product.index')}}"  class="nav-link text-white" id="products">
+                  Products
+                </a>
+              </li>
+              <li>
+                <a href="{{ path('contact.send')}}" class="nav-link text-white" id="contact">
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </div>
+        <div class="main-content">
+            {% block body %}{% endblock %}
+        </div>
+        <script type="text/javascript" charset="utf8" src="{{ asset('js/jquery-3.5.1.js')}}"></script>
+        <script type="text/javascript" charset="utf8" src="{{ asset('js/bootstrap.min.js')}}"></script>
+        <script type="text/javascript" charset="utf8" src="{{ asset('js/sweetalert.min.js')}}"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js"></script>
+        <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+        {% block javascripts %}{% endblock %}
     </body>
 </html>

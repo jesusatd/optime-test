@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product List | Optime {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-12 d-flex justify-content-between align-item-center">
+                <h3>Products</h3>
+                <a href="{{ path('product.create')}}" class="btn btn-md btn-success">
+                    <i class="mdi mdi-add"></i>
+                    New Product
+                </a>
+            </div>
+            <div class="col-md-12 mt-3">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      {{ message }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <table id="table" class="table table-striped">
+                    <thead>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Brand</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Created at</th>
+                        <th>Updated at</th>
+                        <th>Options</th>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                            <tr>
+                                <td>{{product.code}}</td>
+                                <td>{{product.name}}</td>
+                                <td>{{product.description}}</td>
+                                <td>{{product.brand}}</td>
+                                <td>{{product.category}}</td>
+                                <td>{{product.price}}</td>
+                                <td>{{product.createdAt.format('d-m-Y h:i a') }}</td>
+                                <td>{{product.updatedAt.format('d-m-Y h:i a') }}</td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{{ path('product.show', {'id': product.id}) }}" class="btn btn-primary btn-round">
+                                            <i class="mdi mdi-eye"></i>
+                                        </a>
+                                        <a href="{{ path('product.update', {'id': product.id}) }}" class="btn btn-primary btn-round">
+                                            <i class="mdi mdi-pencil"></i>
+                                        </a>
+                                        <form  method="post" 
+                                            action="{{ path('product.delete', {'id': product.id}) }}" id="formDelete">
+                                            <input type="hidden" name="_method" value="DELETE" />
+                                            <button type="submit" class="btn btn-danger btn-round">
+                                                <i class="mdi mdi-delete"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="9" class="text-center">No results found</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(()=>{
+
+            $('#table').dataTable()
+            
+            $('#formDelete').on('submit',function(e){
+                e.preventDefault()
+                swal({
+                  title: "Are you sure?",
+                  text: "Your will not be able to recover this product",
+                  type: "warning",
+                  showCancelButton: true,
+                  confirmButtonClass: "btn-danger",
+                  confirmButtonText: "Yes",
+                  closeOnConfirm: false
+                },()=>{
+                    this.submit()
+                })
+            })
+        })
+    </script>
+{% endblock %}

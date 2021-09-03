@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categories | Optime{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-12 d-flex justify-content-between align-item-center">
+
+                <h3>Categories </h3>
+                <a href="{{ path('category.create')}}" class="btn  btn-md btn-success">
+                    <i class="mdi mdi-add"></i>New category
+                </a>
+            </div>
+            <div class="col-md-12 mt-3">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      {{ message }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <table id="table" class="table table-striped">
+                    <thead>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Created at</th>
+                        <th>Updated at</th>
+                        <th>Options</th>
+                    </thead>
+                    <tbody>
+                        {% for category in categories %}
+                            <tr>
+                                <td>{{category.id}}</td>
+                                <td>{{category.name}}</td>
+                                <td>{{category.active > 0 ? 'Active' :  'Inactive '}}</td>
+                                <td>{{category.createdAt.format('d-m-Y h:i a') }}</td>
+                                <td>{{category.updatedAt.format('d-m-Y h:i a') }}</td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{{ path('category.show', {'id': category.id}) }}" class="btn btn-primary btn-round">
+                                            <i class="mdi mdi-eye"></i>
+                                        </a>
+                                        <a href="{{ path('category.update', {'id': category.id}) }}" class="btn btn-primary btn-round">
+                                            <i class="mdi mdi-pencil"></i>
+                                        </a>
+                                        <form  method="post" 
+                                            action="{{ path('category.delete', {'id': category.id}) }}" id="formDelete">
+                                            <input type="hidden" name="_method" value="DELETE" />
+                                            <button type="submit" class="btn btn-danger btn-round">
+                                                <i class="mdi mdi-delete"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6" class="text-center">No results found</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(()=>{
+
+            $('#table').dataTable()
+
+            $('#formDelete').on('submit',function(e){
+                e.preventDefault()
+                console.log('delete')
+                swal({
+                  title: "Are you sure?",
+                  text: "Your will not be able to recover this category",
+                  type: "warning",
+                  showCancelButton: true,
+                  confirmButtonClass: "btn-danger",
+                  confirmButtonText: "Yes",
+                  closeOnConfirm: false
+                },()=>{
+                    this.submit()
+                })
+            })
+        })
+
+    </script>
+{% endblock %}

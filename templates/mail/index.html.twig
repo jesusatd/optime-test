@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categories | Optime{% endblock %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h3>Contact</h3>
+                <p>We would love to know what you think</p>
+            </div>
+            <div class="col-md-12">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      {{ message }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-12">
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <div class="form-group">
+                        <button  type="submit" class="btn btn-success">Send Mail</button>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
